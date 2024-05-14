@@ -1,0 +1,79 @@
+.top__reviewed 
+{
+  text-align: center;
+  padding: 50px;
+}
+
+.top__rated 
+{
+  background: #ffffff;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.top__rated:hover 
+{
+  background-color: #f7f5f1;
+}
+
+.top__rated-img 
+{
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+.top__rated-h2
+{
+  animation: fadeInDown 1s ease-out;
+}
+.top__rated-p_1
+{
+  animation: fadeInUp 1s ease-out; 
+}
+.top__rated-h3 
+{
+  margin: 10px 0 5px;
+  color: #333;
+}
+
+.top__rated-p 
+{
+  color: #666;
+  font-size: 14px;
+  animation: fadeInUp 1s ease-out; 
+
+}
+
+.stars 
+{
+  color: #e0a80d;
+  margin-bottom: 15px;
+}
+
+
+
+@keyframes fadeInDown 
+{
+  from {
+      opacity: 0;
+      transform: translate3d(0, -100%, 0);
+  }
+  to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInUp 
+{
+  from {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+  }
+  to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+  }
+}
