@@ -1,70 +1,80 @@
-const navBar = document.querySelector(".nav__bar"),
-      menuBtns = document.querySelectorAll(".nav__bar-menu-icon"),
-      overlay = document.querySelector(".nav__bar-overlay"),
-      headerShow = document.querySelector('.header__show'),
-      logocontainer = document.querySelector('.logo-container');
+$(document).ready(function() {
 
-// nav__bar overlay
+    const $navBar = $(".nav__bar"),
+          $menuBtns = $(".nav__bar-menu-icon"),
+          $overlay = $(".nav__bar-overlay"),
+          
+          $headerShow = $('.header__show'),
+          $logocontainer = $('.logo-container');
 
-menuBtns.forEach((menuBtn) => {
-    menuBtn.addEventListener("click", () => {
-        navBar.classList.toggle("open");
+    // nav__bar overlay
+    $menuBtns.each(function() {
+        $(this).on("click", function() {
+            $navBar.toggleClass("open");
+        });
     });
-});
 
-overlay.addEventListener("click", () => {
-    navBar.classList.remove("open");
-});
+    $overlay.on("click", function() {
+        $navBar.removeClass("open");
+    });
 
-// header__show
-let lastScrollTop = 0;
-window.addEventListener("scroll", () => {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (scrollTop > lastScrollTop) {
-        navBar.style.top = "-70px";
-        headerShow.style.top = "-70px";
-        logocontainer.style.top = "-70px";
-    } else {
-        navBar.style.top = "0";
-        headerShow.style.top = "0";
-        logocontainer.style.top = "0";
-    }
-    lastScrollTop = scrollTop;
-});
+    // header__show
 
+    let lastScrollTop = 0;
 
-//User comments
-document.getElementById('comment-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    var username = document.getElementById('username-input').value;
-    var comment = document.getElementById('comment-input').value;
-    var ratings = document.getElementsByName('rating');
-    var selectedRating = [...ratings].find(r => r.checked)?.value || "No rating";
+    $(window).on("scroll", function() {
 
-    if (username.trim() !== "" && comment.trim() !== "") {
-        var commentList = document.getElementById('comment-list');
-        var commentElement = document.createElement('div');
-        commentElement.classList.add('comment-item');
+        let scrollTop = $(this).scrollTop();
 
-        var imgElement = document.createElement('img');
-        imgElement.src = './resources/images/user-profile.jpg'; //user profile picture for all comments
-        imgElement.alt = "User Profile Picture";
-        imgElement.classList.add('profile-pic');
-        commentElement.appendChild(imgElement);
+        if (scrollTop > lastScrollTop) 
+            {
+                $navBar.css("top", "-70px");
+                $headerShow.css("top", "-70px");
+                $logocontainer.css("top", "-70px");
+            }
+            else 
+            {
+                $navBar.css("top", "0");
+                $headerShow.css("top", "0");
+                $logocontainer.css("top", "0");
+            }
 
-        var textElement = document.createElement('span');
-        textElement.textContent = username + ": " + comment + " - " + selectedRating + " star(s)";
-        commentElement.appendChild(textElement);
+        lastScrollTop = scrollTop;
 
-        commentList.prepend(commentElement);  
-        document.getElementById('comment-input').value = "";
-        document.getElementById('username-input').value = ""; 
-        ratings.forEach(r => r.checked = false); 
-    }
-});
+    });
 
-// swiper sliders
-document.addEventListener('DOMContentLoaded', function () {
+    // User comments
+    $('#comment-form').on('submit', function(event) {
+
+        event.preventDefault();
+
+        var username = $('#username-input').val();
+        var comment = $('#comment-input').val();
+        var ratings = $('input[name="rating"]');
+        var selectedRating = ratings.filter(':checked').val() || "No rating";
+
+        if (username.trim() !== "" && comment.trim() !== "") 
+            {
+                var commentList = $('#comment-list');
+                var commentElement = $('<div>').addClass('comment-item');
+
+                var imgElement = $('<img>')
+                    .attr('src', './resources/images/user-profile.jpg') //user profile picture for all comments
+                    .attr('alt', 'User Profile Picture')
+                    .addClass('profile-pic');
+                commentElement.append(imgElement);
+
+                var textElement = $('<span>').text(username + ": " + comment + " - " + selectedRating + " star(s)");
+                commentElement.append(textElement);
+
+                commentList.prepend(commentElement);
+                $('#comment-input').val("");
+                $('#username-input').val("");
+                ratings.prop('checked', false);
+            }
+    });
+
+    // swiper sliders
     var swiper = new Swiper('.mySwiper', {
         spaceBetween: 30,
         centeredSlides: true,
